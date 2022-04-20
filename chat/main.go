@@ -3,7 +3,15 @@ package main
 import (
 	"log"
 	"net/http"
+	"sync"
+	"text/template"
 )
+
+type templateHandler struct {
+	filename string
+	once     sync.Once
+	templ    *template.Template
+}
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
